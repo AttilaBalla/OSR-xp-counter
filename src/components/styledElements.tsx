@@ -40,6 +40,7 @@ export const ProgressBarPrimary = styled(Box)(({theme}) => ({
 export const ProgressBarSecondary = styled(Box)(({theme}) => ({
   backgroundColor: theme.palette.secondary.main,
   transition: 'width 0.5s',
+  boxShadow: `0 0 5px ${theme.palette.secondary.main}`,
   '&:first-of-type': {
     borderBottomLeftRadius: '5px',
     borderTopLeftRadius: '5px'

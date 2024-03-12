@@ -31,6 +31,7 @@ export function XpDetailsPanel(props: IProps) {
   const gainedXP = currentLevel ? null : (totalXP / 100) * progressedPercent
   const accumulatedPercent = (accumulatedXP / totalXP) * 100 // blue progress bar part
   const gainedPercent = ((progressedXP / totalXP) * 100) - accumulatedPercent // orange progress bar part
+  const totalGainedPercent = currentLevel ? accumulatedPercent + gainedPercent : 0
 
   const progressbarParts: IProgressBar[] = [
     {percent: accumulatedPercent, color: progressBarTypes.primary},
@@ -69,6 +70,9 @@ export function XpDetailsPanel(props: IProps) {
         <Grid xs={4}>
           {gainedXP ? <StatTypography>XP gained</StatTypography> : null}
           {gainedXP ? <ExperienceNumber xp={gainedXP}/> : null}
+          {totalGainedPercent ? <StatTypography>Percent to target level</StatTypography> : null}
+          {totalGainedPercent ? `${totalGainedPercent.toFixed(2)}%` : null}
+          {totalGainedPercent && gainedPercent ? ` (${gainedPercent.toFixed(2)}%)` : null}
         </Grid>
         <Grid xs={4}>
           <StatTypography>XP remaining</StatTypography>
