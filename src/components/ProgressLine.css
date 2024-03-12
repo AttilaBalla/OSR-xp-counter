@@ -1,0 +1,15 @@
+
+.progressVisualPart {
+    /* Number of the seconds for complete animation */
+    transition: width 0.5s;
+}
+
+.progressVisualPart:first-of-type {
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+}
+
+.progressVisualPart:last-of-type {
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+}
