@@ -1,4 +1,4 @@
-import {ChangeEvent, useState} from 'react'
+import {ChangeEvent, Dispatch, SetStateAction, useState} from 'react'
 import {Box, Stack, TextField} from "@mui/material";
 import Grid from '@mui/material/Unstable_Grid2'; // Grid version 2
 import {XpDetailsPanel} from "./components/XpDetailsPanel";
@@ -12,6 +12,19 @@ function App() {
   const [fromLevel, setFromLevel] = useState<string>("")
   const [toLevel, setToLevel] = useState<string>("")
 
+  function setValue(
+    value: string,
+    minValue: number,
+    maxValue: number,
+    setter: Dispatch<SetStateAction<string>>) {
+    const intValue = parseInt(value);
+    if (intValue > maxValue || intValue < minValue) {
+      return
+    } else {
+      setter(value)
+    }
+  }
+
   return (
     <Box sx={{maxWidth: '1440px', margin: 'auto', padding: '2rem'}}>
       <Grid container spacing={4}>
@@ -23,7 +36,7 @@ function App() {
               label={'Level'}
               value={level}
               onChange={(event: ChangeEvent<HTMLInputElement>) => {
-                setLevel(event.target.value);
+                setValue(event.target.value, 1, 99, setLevel)
               }}
             />
             <TextField
@@ -31,7 +44,7 @@ function App() {
               label={'Percent'}
               value={percent}
               onChange={(event: ChangeEvent<HTMLInputElement>) => {
-                setPercent(event.target.value);
+                setValue(event.target.value, 0, 100, setPercent)
               }}/>
           </Stack>
         </Grid>
@@ -43,7 +56,7 @@ function App() {
             label={'Progressed %'}
             value={progress}
             onChange={(event: ChangeEvent<HTMLInputElement>) => {
-              setProgress(event.target.value);
+              setValue(event.target.value, 0, 100, setProgress)
             }}/>
         </Grid>
         <Grid sm={6}>
@@ -54,7 +67,7 @@ function App() {
               label={'From level'}
               value={fromLevel}
               onChange={(event: ChangeEvent<HTMLInputElement>) => {
-                setFromLevel(event.target.value);
+                setValue(event.target.value, 1, 99, setFromLevel)
               }}
             />
             <TextField
@@ -62,7 +75,7 @@ function App() {
               label={'To level'}
               value={toLevel}
               onChange={(event: ChangeEvent<HTMLInputElement>) => {
-                setToLevel(event.target.value);
+                setValue(event.target.value, 1, 100, setToLevel)
               }}
             />
           </Stack>

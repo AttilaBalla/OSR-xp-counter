@@ -25,11 +25,29 @@ export const TitleTypography = styled(Typography)(({theme}) => ({
 
 
 export const ProgressBarPrimary = styled(Box)(({theme}) => ({
-  backgroundColor: theme.palette.primary.main
+  backgroundColor: theme.palette.primary.main,
+  transition: 'width 0.5s',
+  '&:first-of-type': {
+    borderBottomLeftRadius: '5px',
+    borderTopLeftRadius: '5px'
+  },
+  '&:last-of-type': {
+    borderBottomRightRadius: '5px',
+    borderTopRightRadius: '5px'
+  }
 }))
 
 export const ProgressBarSecondary = styled(Box)(({theme}) => ({
-  backgroundColor: theme.palette.secondary.main
+  backgroundColor: theme.palette.secondary.main,
+  transition: 'width 0.5s',
+  '&:first-of-type': {
+    borderBottomLeftRadius: '5px',
+    borderTopLeftRadius: '5px'
+  },
+  '&:last-of-type': {
+    borderBottomRightRadius: '5px',
+    borderTopRightRadius: '5px'
+  }
 }))
 
 export const ProgressBarFull = styled(Box)(({theme}) => ({

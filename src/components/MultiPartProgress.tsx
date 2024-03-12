@@ -1,5 +1,4 @@
 import {useEffect, useState} from "react";
-import "./ProgressLine.css";
 import {ProgressBarFull, ProgressBarPrimary, ProgressBarSecondary} from "./styledElements";
 import {progressBarTypes} from "../utilities/constants";
 
