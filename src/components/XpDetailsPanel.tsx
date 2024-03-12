@@ -34,15 +34,15 @@ export function XpDetailsPanel(props: IProps) {
   const totalGainedPercent = currentLevel ? accumulatedPercent + gainedPercent : 0
 
   const progressbarParts: IProgressBar[] = [
-    {percent: accumulatedPercent, color: progressBarTypes.primary},
-  ]
-
-  if (progressedPercent > 0) {
-    progressbarParts.push({
+    {
+      percent: accumulatedPercent,
+      color: progressBarTypes.primary
+    },
+    {
       percent: progressedPercent ? gainedPercent : 0,
       color: progressBarTypes.secondary
-    })
-  }
+    }
+  ]
 
   return (
     <Paper elevation={2} sx={{padding: '2rem'}}>

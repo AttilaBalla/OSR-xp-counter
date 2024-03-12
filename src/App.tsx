@@ -1,5 +1,5 @@
 import {ChangeEvent, Dispatch, SetStateAction, useState} from 'react'
-import {Box, Stack, TextField} from "@mui/material";
+import {Box, Button, Stack, TextField} from "@mui/material";
 import Grid from '@mui/material/Unstable_Grid2'; // Grid version 2
 import {XpDetailsPanel} from "./components/XpDetailsPanel";
 import {TitleTypography} from "./components/styledElements";
@@ -25,10 +25,14 @@ function App() {
     }
   }
 
+  function mergeProgressIntoPercent() {
+    setPercent(progress)
+  }
+
   return (
     <Box sx={{maxWidth: '1440px', margin: 'auto', padding: '2rem'}}>
       <Grid container spacing={4}>
-        <Grid sm={4}>
+        <Grid sm={3}>
           <TitleTypography>Character</TitleTypography>
           <Stack direction={'row'} spacing={2} sx={{mt: '0.5rem'}}>
             <TextField
@@ -48,16 +52,26 @@ function App() {
               }}/>
           </Stack>
         </Grid>
-        <Grid sm={2}>
+        <Grid sm={3}>
           <TitleTypography>Progress</TitleTypography>
-          <TextField
-            sx={{mt: '0.5rem', width: '100%'}}
-            type={'number'}
-            label={'Progressed %'}
-            value={progress}
-            onChange={(event: ChangeEvent<HTMLInputElement>) => {
-              setValue(event.target.value, 0, 100, setProgress)
-            }}/>
+          <Stack direction={'row'} spacing={2} sx={{mt: '0.5rem'}}>
+            <TextField
+              sx={{mt: '0.5rem', width: '100%'}}
+              type={'number'}
+              color={'secondary'}
+              label={'Progressed %'}
+              value={progress}
+              onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                setValue(event.target.value, 0, 100, setProgress)
+              }}/>
+            <Button
+              color={'secondary'}
+              variant={'outlined'}
+              onClick={mergeProgressIntoPercent}
+              disabled={parseFloat(percent) >= parseFloat(progress)}>
+              Merge
+            </Button>
+          </Stack>
         </Grid>
         <Grid sm={6}>
           <TitleTypography>Show Range</TitleTypography>
