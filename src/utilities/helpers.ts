@@ -1,11 +1,4 @@
-// MIN = Minimum expected value
-// MAX = Maximum expected value
-// Function to normalise the values (MIN / MAX could be integrated)
-import {level} from "./constants";
-
-export function normalizeValue(min: number, max: number, value: number): number {
-  return ((value - min) * 100) / (max - min)
-}
+import {level, missions} from "./constants";
 
 export function calcAccumulatedXP(
   fromLevel: number,
@@ -14,4 +7,15 @@ export function calcAccumulatedXP(
 
   const percentXP = (level[currentLevel + 1] - level[currentLevel]) * (percent / 100)
   return (level[currentLevel] - level[fromLevel]) + percentXP;
+}
+
+export function calcAccumulatedMissionXP(selectedMissions: number[]): number {
+  let totalXP = 0;
+  missions.forEach((mission) => {
+    if (selectedMissions.includes(mission.level)) {
+      totalXP += mission.xp
+    }
+  })
+
+  return totalXP
 }

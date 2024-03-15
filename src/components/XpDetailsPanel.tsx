@@ -1,10 +1,11 @@
 import {Box, Paper} from "@mui/material";
 import Grid from '@mui/material/Unstable_Grid2'; // Grid version 2
-import {IProgressBar, level, progressBarTypes} from "../utilities/constants";
+import {IProgressBar, level, ProgressBarTypes} from "../utilities/constants";
 import {ExperienceNumber} from "./ExperienceNumber";
-import {calcAccumulatedXP} from "../utilities/helpers";
+import {calcAccumulatedMissionXP, calcAccumulatedXP} from "../utilities/helpers";
 import {MultiPartProgress} from "./MultiPartProgress";
 import {StatTypography, TitleTypography} from "./styledElements";
+import {PercentXPGainPanel} from "./PercentXPGainPanel";
 
 interface IProps {
   title: string,
@@ -12,35 +13,57 @@ interface IProps {
   toLevel: number,
   percent: number,
   currentLevel?: number
-  milestonePercent: number
+  progressedPercent: number
+  selectedMissions: number[]
 }
 
 export function XpDetailsPanel(props: IProps) {
 
-  const {title, fromLevel, toLevel, currentLevel, percent, milestonePercent} = props;
+  const {title, fromLevel, toLevel, currentLevel, percent, progressedPercent, selectedMissions} = props
 
   const totalXP = level[toLevel] - level[fromLevel]
-  const progressedPercent = milestonePercent - percent
+  const missionXP = calcAccumulatedMissionXP(selectedMissions)
+  // the difference between base % and progressed %
+  const gainedPercent = progressedPercent - percent
+
+  // used for overall base XP calculation if current level is given between a range
   const accumulatedXP = currentLevel ?
     calcAccumulatedXP(fromLevel, currentLevel, percent)
     : (totalXP * (percent / 100))
+
+  // same as above but for progressed XP
   const progressedXP = currentLevel ?
-    calcAccumulatedXP(fromLevel, currentLevel, percent + progressedPercent)
-    : (totalXP * ((percent + progressedPercent) / 100))
-  const remainingXP = totalXP - accumulatedXP - (progressedXP - accumulatedXP)
-  const gainedXP = currentLevel ? null : (totalXP / 100) * progressedPercent
-  const accumulatedPercent = (accumulatedXP / totalXP) * 100 // blue progress bar part
-  const gainedPercent = ((progressedXP / totalXP) * 100) - accumulatedPercent // orange progress bar part
-  const totalGainedPercent = currentLevel ? accumulatedPercent + gainedPercent : 0
+    calcAccumulatedXP(fromLevel, currentLevel, percent + gainedPercent)
+    : (totalXP * ((percent + gainedPercent) / 100))
+
+  const remainingXP = totalXP - accumulatedXP - missionXP - (progressedXP - accumulatedXP)
+
+  // only calculated for the current level bar (percent is given)
+  const gainedXP = currentLevel ? null : (totalXP / 100) * gainedPercent
+
+  // has to be calculated for overall progress - blue progress bar part
+  const basePercent = (accumulatedXP / totalXP) * 100
+
+  const missionPercent = (missionXP / totalXP) * 100
+
+  // overall gained % towards the target level
+  const overallGainedPercent = ((progressedXP / totalXP) * 100) - basePercent
+
+  // overall progress in % towards the target level - only calculated for overall progress
+  const overallBasePercent = currentLevel ? basePercent + overallGainedPercent + missionPercent: 0
 
   const progressbarParts: IProgressBar[] = [
     {
-      percent: accumulatedPercent,
-      color: progressBarTypes.primary
+      percent: basePercent,
+      color: ProgressBarTypes.primary
     },
     {
-      percent: progressedPercent ? gainedPercent : 0,
-      color: progressBarTypes.secondary
+      percent: missionPercent,
+      color: ProgressBarTypes.info
+    },
+    {
+      percent: gainedPercent ? overallGainedPercent : 0,
+      color: ProgressBarTypes.secondary
     }
   ]
 
@@ -68,11 +91,18 @@ export function XpDetailsPanel(props: IProps) {
           <ExperienceNumber xp={totalXP}/>
         </Grid>
         <Grid xs={4}>
-          {gainedXP ? <StatTypography>XP gained</StatTypography> : null}
-          {gainedXP ? <ExperienceNumber xp={gainedXP}/> : null}
-          {totalGainedPercent ? <StatTypography>Percent to target level</StatTypography> : null}
-          {totalGainedPercent ? `${totalGainedPercent.toFixed(2)}%` : null}
-          {totalGainedPercent && gainedPercent ? ` (${gainedPercent.toFixed(2)}%)` : null}
+          {!currentLevel ? <PercentXPGainPanel
+            title={'XP gained'}
+            mode={'xp'}
+            baseValue={gainedXP}
+          /> : null}
+          {overallBasePercent ? <PercentXPGainPanel
+            title={'Progress in %'}
+            mode={'percent'}
+            baseValue={overallBasePercent}
+            progressValue={overallGainedPercent}
+            missionValue={missionPercent}
+          /> : null}
         </Grid>
         <Grid xs={4}>
           <StatTypography>XP remaining</StatTypography>

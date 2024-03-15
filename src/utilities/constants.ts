@@ -1,11 +1,12 @@
-export enum progressBarTypes {
+export enum ProgressBarTypes {
   primary = 'primary',
-  secondary = 'secondary'
+  secondary = 'secondary',
+  info = 'info'
 }
 
 export interface IProgressBar {
   percent: number,
-  color: progressBarTypes
+  color: ProgressBarTypes
 }
 
 export const level:Record<number, number> = {
@@ -110,3 +111,26 @@ export const level:Record<number, number> = {
   99: 12296508608,
   100: 14752140474
 }
+
+export const missions = [
+  {
+    name: 'Dark Evolutions',
+    level: 66,
+    xp: 1940000
+  },
+  {
+    name: 'Past and Present Collide',
+    level: 93,
+    xp: 190000000
+  },
+  {
+    name: 'The Three Bishop',
+    level: 95,
+    xp: 190010000
+  },
+  {
+    name: 'Sekhmete',
+    level: 99,
+    xp: 190030000
+  }
+]

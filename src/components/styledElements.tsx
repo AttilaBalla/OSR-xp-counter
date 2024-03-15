@@ -1,6 +1,15 @@
 import {Box, styled, Typography} from "@mui/material";
 
-export const XpNumberTypography = styled(Typography)(() => ({
+export const XpNumberTypography = styled(Typography)<{fontColor?: string}>(({theme, fontColor}) => ({
+  color: fontColor || theme.palette.text.primary,
+  fontSize: "1rem",
+  fontWeight: 600,
+  lineHeight: '2rem',
+  padding: 0,
+}))
+
+export const PercentTypography = styled(Typography)<{fontColor?: string}>(({theme, fontColor}) => ({
+  color: fontColor || theme.palette.text.primary,
   fontSize: "1rem",
   fontWeight: 600,
   lineHeight: '2rem',
@@ -24,23 +33,10 @@ export const TitleTypography = styled(Typography)(({theme}) => ({
 }))
 
 
-export const ProgressBarPrimary = styled(Box)(({theme}) => ({
-  backgroundColor: theme.palette.primary.main,
+export const ProgressBarInner = styled(Box)<{ bgColor: string }>(({theme, bgColor}) => ({
+  backgroundColor: bgColor,
+  boxShadow: bgColor !== theme.palette.primary.main ? `0 0 5px ${bgColor}` : 'none',
   transition: 'width 0.5s',
-  '&:first-of-type': {
-    borderBottomLeftRadius: '5px',
-    borderTopLeftRadius: '5px'
-  },
-  '&:last-of-type': {
-    borderBottomRightRadius: '5px',
-    borderTopRightRadius: '5px'
-  }
-}))
-
-export const ProgressBarSecondary = styled(Box)(({theme}) => ({
-  backgroundColor: theme.palette.secondary.main,
-  transition: 'width 0.5s',
-  boxShadow: `0 0 5px ${theme.palette.secondary.main}`,
   '&:first-of-type': {
     borderBottomLeftRadius: '5px',
     borderTopLeftRadius: '5px'

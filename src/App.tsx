@@ -3,6 +3,7 @@ import {Box, Button, Stack, TextField} from "@mui/material";
 import Grid from '@mui/material/Unstable_Grid2'; // Grid version 2
 import {XpDetailsPanel} from "./components/XpDetailsPanel";
 import {TitleTypography} from "./components/styledElements";
+import {MissionDialog} from "./components/MissionDialog";
 
 function App() {
 
@@ -11,6 +12,7 @@ function App() {
   const [progress, setProgress] = useState<string>("0")
   const [fromLevel, setFromLevel] = useState<string>("")
   const [toLevel, setToLevel] = useState<string>("")
+  const [missions, setMissions] = useState<number[]>([])
 
   function setValue(
     value: string,
@@ -45,10 +47,18 @@ function App() {
             />
             <TextField
               type={'number'}
-              label={'Percent'}
+              label={'%'}
               value={percent}
               onChange={(event: ChangeEvent<HTMLInputElement>) => {
-                setValue(event.target.value, 0, 100, setPercent)
+                const value = event.target.value
+                setValue(value, 0, 100, () => {
+                  setPercent((prevState) => {
+                    if(parseInt(prevState) < parseInt(value)) {
+                      setProgress(value)
+                    }
+                    return event.target.value
+                  })
+                })
               }}/>
           </Stack>
         </Grid>
@@ -73,7 +83,7 @@ function App() {
             </Button>
           </Stack>
         </Grid>
-        <Grid sm={6}>
+        <Grid sm={4}>
           <TitleTypography>Show Range</TitleTypography>
           <Stack direction={'row'} spacing={2} sx={{mt: '0.5rem'}}>
             <TextField
@@ -94,13 +104,18 @@ function App() {
             />
           </Stack>
         </Grid>
+        <Grid sm={2}>
+          <TitleTypography>Missions</TitleTypography>
+          <MissionDialog setMissions={setMissions}/>
+        </Grid>
         <Grid xs={12}>
           {level ? <XpDetailsPanel
               title={'Current level'}
               fromLevel={parseInt(level)}
               toLevel={parseInt(level) + 1}
               percent={parseFloat(percent)}
-              milestonePercent={parseFloat(progress)}
+              progressedPercent={parseFloat(progress)}
+              selectedMissions={missions}
             />
             : null}
         </Grid>
@@ -111,7 +126,8 @@ function App() {
               fromLevel={parseInt(fromLevel)}
               toLevel={parseInt(toLevel)}
               percent={parseFloat(percent)}
-              milestonePercent={parseFloat(progress)}
+              progressedPercent={parseFloat(progress)}
+              selectedMissions={missions}
             />
             : null}
         </Grid>
