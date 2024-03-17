@@ -86,11 +86,11 @@ export function XpDetailsPanel(props: IProps) {
       </Box>
       <MultiPartProgress parts={progressbarParts}/>
       <Grid container sx={{my: '1rem'}}>
-        <Grid xs={4}>
+        <Grid xs={3}>
           <StatTypography>Total XP needed</StatTypography>
           <ExperienceNumber xp={totalXP}/>
         </Grid>
-        <Grid xs={4}>
+        <Grid xs={3}>
           {!currentLevel ? <PercentXPGainPanel
             title={'XP gained'}
             mode={'xp'}
@@ -104,7 +104,17 @@ export function XpDetailsPanel(props: IProps) {
             missionValue={missionPercent}
           /> : null}
         </Grid>
-        <Grid xs={4}>
+        <Grid xs={3}>
+          {!currentLevel ?
+              <PercentXPGainPanel
+                title={'Total progress'}
+                mode={'percent'}
+                baseValue={basePercent + gainedPercent + missionPercent}
+                progressValue={gainedPercent}
+                missionValue={missionPercent}
+              /> : null}
+        </Grid>
+        <Grid xs={3}>
           <StatTypography>XP remaining</StatTypography>
           {remainingXP >= 0 ? <ExperienceNumber xp={remainingXP}/> : null}
         </Grid>
