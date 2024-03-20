@@ -50,7 +50,7 @@ export function XpDetailsPanel(props: IProps) {
   const overallGainedPercent = ((progressedXP / totalXP) * 100) - basePercent
 
   // overall progress in % towards the target level - only calculated for overall progress
-  const overallBasePercent = currentLevel ? basePercent + overallGainedPercent + missionPercent: 0
+  const overallBasePercent = currentLevel ? basePercent + overallGainedPercent + missionPercent : 0
 
   const progressbarParts: IProgressBar[] = [
     {
@@ -91,28 +91,20 @@ export function XpDetailsPanel(props: IProps) {
           <ExperienceNumber xp={totalXP}/>
         </Grid>
         <Grid xs={3}>
+          <PercentXPGainPanel
+            title={'Progress in %'}
+            mode={'percent'}
+            baseValue={overallBasePercent ? overallBasePercent : basePercent + gainedPercent + missionPercent}
+            progressValue={overallBasePercent ? overallGainedPercent : gainedPercent}
+            missionValue={missionPercent}
+          />
+        </Grid>
+        <Grid xs={3}>
           {!currentLevel ? <PercentXPGainPanel
             title={'XP gained'}
             mode={'xp'}
             baseValue={gainedXP}
           /> : null}
-          {overallBasePercent ? <PercentXPGainPanel
-            title={'Progress in %'}
-            mode={'percent'}
-            baseValue={overallBasePercent}
-            progressValue={overallGainedPercent}
-            missionValue={missionPercent}
-          /> : null}
-        </Grid>
-        <Grid xs={3}>
-          {!currentLevel ?
-              <PercentXPGainPanel
-                title={'Total progress'}
-                mode={'percent'}
-                baseValue={basePercent + gainedPercent + missionPercent}
-                progressValue={gainedPercent}
-                missionValue={missionPercent}
-              /> : null}
         </Grid>
         <Grid xs={3}>
           <StatTypography>XP remaining</StatTypography>
