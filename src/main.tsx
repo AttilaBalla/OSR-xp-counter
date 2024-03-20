@@ -7,6 +7,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import XpCounter from "./pages/XpCounter.tsx";
+import FixVisualizer from "./pages/FixVisualizer";
 
 const theme = createTheme({
   palette: {
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
   {
     path: "/OSR-xp-counter",
     element: <XpCounter/>,
+  },
+  {
+    path: "/OSR-xp-counter/fix-visualizer",
+    element: <FixVisualizer/>,
   },
 ]);
 

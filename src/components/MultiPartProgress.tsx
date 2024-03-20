@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import {ProgressBarFull, ProgressBarInner} from "./styledElements";
 import {useTheme} from "@mui/material";
-import {ProgressBarTypes} from "../utilities/constants";
+import {ProgressBarTypes} from "../utilities/types";
 
 interface IProps {
   parts: { percent: number, color: string }[]
@@ -53,7 +53,6 @@ export function MultiPartProgress(props: IProps) {
                 style={{
                   width: `${widths[index]}%`,
                 }}
-                className="progressVisualPart"
               />
           )
         })}

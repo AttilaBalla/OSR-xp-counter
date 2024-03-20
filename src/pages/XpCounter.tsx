@@ -1,10 +1,11 @@
 import {ChangeEvent, Dispatch, SetStateAction, useState} from 'react'
-import {Box, Stack, TextField} from "@mui/material";
+import {Stack, TextField} from "@mui/material";
 import Grid from '@mui/material/Unstable_Grid2'; // Grid version 2
 import {TitleTypography} from "../components/styledElements.tsx";
 import {MissionDialog} from "../components/MissionDialog.tsx";
 import {XpDetailsPanel} from "../components/XpDetailsPanel.tsx";
 import Button from "@mui/material/Button";
+import {PageFrame} from "../components/PageFrame";
 
 function XpCounter() {
 
@@ -33,7 +34,7 @@ function XpCounter() {
   }
 
   return (
-    <Box sx={{maxWidth: '1440px', margin: 'auto', padding: '2rem'}}>
+    <PageFrame>
       <Grid container spacing={4}>
         <Grid sm={3}>
           <TitleTypography>Character</TitleTypography>
@@ -133,7 +134,7 @@ function XpCounter() {
             : null}
         </Grid>
       </Grid>
-    </Box>
+    </PageFrame>
   )
 }
 

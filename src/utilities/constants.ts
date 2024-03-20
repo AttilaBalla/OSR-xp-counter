@@ -1,15 +1,4 @@
-export enum ProgressBarTypes {
-  primary = 'primary',
-  secondary = 'secondary',
-  info = 'info'
-}
-
-export interface IProgressBar {
-  percent: number,
-  color: ProgressBarTypes
-}
-
-export const level:Record<number, number> = {
+export const level: Record<number, number> = {
   1: 0,
   2: 91,
   3: 232,
@@ -133,4 +122,60 @@ export const missions = [
     level: 99,
     xp: 190030000
   }
+]
+
+export const weaponNames = [
+  'Arrow',
+  'Hammerhead',
+  'Bawoo',
+  'Tongpha',
+  'Edrill',
+  'Twintail',
+  'Drum',
+  'Jin',
+  'Bate',
+  'Demonhunter',
+  'Zelus',
+  'Bigsmash'
+]
+
+export const fixesProbMinMax = [
+  'Asmodi',
+  'Agareth',
+  'Kobal',
+  'Warrior',
+  'Navas',
+  'Neopyte',
+  'Luciper'
+]
+export const fixesProbRa = ['' +
+'Legend',
+  'Silence',
+  'Bio',
+  'Meteo',
+  'Ultra',
+  'Tachyon'
+]
+export const fixesMinMaxRa = [
+  'Max',
+  'Squire',
+  'Major',
+  'Minor'
+]
+export const fixesPierce = [
+  'Bandit',
+  'Traitor',
+  'Acts',
+  'Adversary',
+  'Aim',
+  'Agrippa',
+  'Aloken',
+  'Arcas',
+  'Archival',
+  'Argos',
+  'Arius',
+  'Bane',
+  'Neith',
+  'Metis'
+
 ]

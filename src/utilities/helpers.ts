@@ -19,3 +19,23 @@ export function calcAccumulatedMissionXP(selectedMissions: number[]): number {
 
   return totalXP
 }
+
+export function countFixes(fixes: string[] | undefined) {
+
+  if(!fixes) return;
+
+  const knownFixes:string[] = []
+  const fixesCount: Record<string, number> = {}
+
+  fixes.forEach((fix) => {
+    const fixName = fix.split(' ')[0]
+    if(knownFixes.includes(fixName)) {
+      fixesCount[fixName] += 1
+    } else {
+      knownFixes.push(fixName)
+      fixesCount[fixName] = 1
+    }
+  })
+
+  return fixesCount
+}

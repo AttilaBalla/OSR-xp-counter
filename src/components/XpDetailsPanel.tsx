@@ -1,11 +1,12 @@
 import {Box, Paper} from "@mui/material";
 import Grid from '@mui/material/Unstable_Grid2'; // Grid version 2
-import {IProgressBar, level, ProgressBarTypes} from "../utilities/constants";
+import {level} from "../utilities/constants";
 import {ExperienceNumber} from "./ExperienceNumber";
 import {calcAccumulatedMissionXP, calcAccumulatedXP} from "../utilities/helpers";
 import {MultiPartProgress} from "./MultiPartProgress";
 import {StatTypography, TitleTypography} from "./styledElements";
 import {PercentXPGainPanel} from "./PercentXPGainPanel";
+import {IProgressBar, ProgressBarTypes} from "../utilities/types";
 
 interface IProps {
   title: string,

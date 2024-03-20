@@ -51,7 +51,6 @@ export const ProgressBarFull = styled(Box)(({theme}) => ({
   display: 'flex',
   width: '100%',
   height: '12px',
-  margin: '20px 0',
   borderRadius: '5px',
   backgroundColor: theme.palette.grey[600]
 }))
