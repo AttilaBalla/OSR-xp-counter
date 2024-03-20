@@ -1,4 +1,4 @@
-import {level, missions} from "./constants";
+import {level, missions, weaponNames} from "./constants";
 
 export function calcAccumulatedXP(
   fromLevel: number,
@@ -22,20 +22,29 @@ export function calcAccumulatedMissionXP(selectedMissions: number[]): number {
 
 export function countFixes(fixes: string[] | undefined) {
 
-  if(!fixes) return;
+  if (!fixes) return;
 
-  const knownFixes:string[] = []
-  const fixesCount: Record<string, number> = {}
+  const knownFixes: string[] = []
+  const fixesList: { name: string, count: number }[] = []
 
-  fixes.forEach((fix) => {
-    const fixName = fix.split(' ')[0]
-    if(knownFixes.includes(fixName)) {
-      fixesCount[fixName] += 1
-    } else {
-      knownFixes.push(fixName)
-      fixesCount[fixName] = 1
-    }
-  })
+  fixes
+    .filter((fix) => { // filter out mistakes made by the script
+      return fix !== ''
+    })
+    .forEach((fix) => {
+      const fixName = fix.split(' ')[0]
+      if (knownFixes.includes(fixName)) {
+        const index = fixesList.findIndex((fix) => {
+          return fix.name === fixName
+        })
+        fixesList[index].count += 1
+      } else {
+        if (!weaponNames.includes(fixName)) {
+          knownFixes.push(fixName)
+          fixesList.push({name: fixName, count: 1})
+        }
+      }
+    })
 
-  return fixesCount
+  return fixesList
 }

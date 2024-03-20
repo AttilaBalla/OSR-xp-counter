@@ -3,7 +3,7 @@ import {FixElement} from "./FixElement";
 import {ChangeEvent, useState} from "react";
 
 interface IProps {
-  fixes: Record<string, number>
+  fixes: { name: string, count: number }[]
 }
 export function FixListerPanel(props: IProps) {
 
@@ -15,11 +15,14 @@ export function FixListerPanel(props: IProps) {
     setSortBy((event.target as HTMLInputElement).value);
   };
 
-  const highestFixCount = fixes ? Object.values(fixes).reduce(function (prev, current) {
-    return (prev && prev > current) ? prev : current
-  }) : 0 //returns object
+  const mostOccurredFix = fixes ? Object.values(fixes).reduce(function (prev, current) {
+    return (prev && prev.count > current.count) ? prev : current
+  }).count : 0 //returns object
 
-  const sortedFixList = sortBy === 'name' ? Object.keys(fixes).sort() : Object.values(fixes).sort()
+  const sortedFixList = sortBy === 'name' ?
+    fixes.sort((a, b) => a.name > b.name ? 1 : b.name > a.name ? -1 : 0) :
+    fixes.sort((a, b) => b.count - a.count)
+
 
   return (
     <>
@@ -35,9 +38,9 @@ export function FixListerPanel(props: IProps) {
         </RadioGroup>
       </Box>
       <Divider sx={{my: '1rem'}}/>
-      {fixes ? Object.keys(fixes).sort().map((fix) => {
-        return <FixElement name={fix} percent={(fixes[fix] / highestFixCount) * 100} value={fixes[fix]}/>
-      }) : null}
+      {sortedFixList.map((fix) => {
+        return <FixElement name={fix.name} percent={(fix.count / mostOccurredFix) * 100} value={fix.count}/>
+      })}
     </>
   )
 }
