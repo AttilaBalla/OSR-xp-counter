@@ -1,11 +1,12 @@
 import {ChangeEvent, Dispatch, SetStateAction, useState} from 'react'
-import {Box, Button, Stack, TextField} from "@mui/material";
+import {Box, Stack, TextField} from "@mui/material";
 import Grid from '@mui/material/Unstable_Grid2'; // Grid version 2
-import {XpDetailsPanel} from "./components/XpDetailsPanel";
-import {TitleTypography} from "./components/styledElements";
-import {MissionDialog} from "./components/MissionDialog";
+import {TitleTypography} from "../components/styledElements.tsx";
+import {MissionDialog} from "../components/MissionDialog.tsx";
+import {XpDetailsPanel} from "../components/XpDetailsPanel.tsx";
+import Button from "@mui/material/Button";
 
-function App() {
+function XpCounter() {
 
   const [level, setLevel] = useState<string>("")
   const [percent, setPercent] = useState<string>("0")
@@ -53,7 +54,7 @@ function App() {
                 const value = event.target.value
                 setValue(value, 0, 100, () => {
                   setPercent((prevState) => {
-                    if(parseInt(prevState) < parseInt(value)) {
+                    if (parseInt(prevState) < parseInt(value)) {
                       setProgress(value)
                     }
                     return event.target.value
@@ -136,4 +137,4 @@ function App() {
   )
 }
 
-export default App
+export default XpCounter
