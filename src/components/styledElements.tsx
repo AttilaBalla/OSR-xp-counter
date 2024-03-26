@@ -1,6 +1,6 @@
 import {Box, styled, Typography} from "@mui/material";
 
-export const XpNumberTypography = styled(Typography)<{fontColor?: string}>(({theme, fontColor}) => ({
+export const XpNumberTypography = styled(Typography)<{ fontColor?: string }>(({theme, fontColor}) => ({
   color: fontColor || theme.palette.text.primary,
   fontSize: "1rem",
   fontWeight: 600,
@@ -8,7 +8,7 @@ export const XpNumberTypography = styled(Typography)<{fontColor?: string}>(({the
   padding: 0,
 }))
 
-export const PercentTypography = styled(Typography)<{fontColor?: string}>(({theme, fontColor}) => ({
+export const PercentTypography = styled(Typography)<{ fontColor?: string }>(({theme, fontColor}) => ({
   color: fontColor || theme.palette.text.primary,
   fontSize: "1rem",
   fontWeight: 600,
@@ -47,8 +47,9 @@ export const ProgressBarInner = styled(Box)<{ bgColor: string }>(({theme, bgColo
   }
 }))
 
-export const ProgressBarFull = styled(Box)(({theme}) => ({
+export const ProgressBarFull = styled(Box)<{ suffixMode: boolean | undefined }>(({theme, suffixMode}) => ({
   display: 'flex',
+  flexDirection: suffixMode ? 'row-reverse' : 'row',
   width: '100%',
   height: '12px',
   borderRadius: '5px',

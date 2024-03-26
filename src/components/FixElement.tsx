@@ -5,11 +5,12 @@ import {FixType, IFix} from "../utilities/types";
 interface IProps {
   fix: IFix,
   percent: number
+  suffixMode?: boolean
 }
 
 export function FixElement(props: IProps) {
 
-  const {fix, percent} = props
+  const {fix, percent, suffixMode} = props
   const theme = useTheme()
 
   const colorMap: Record<FixType | string, string> = {
@@ -22,26 +23,34 @@ export function FixElement(props: IProps) {
 
   let color = colorMap[FixType.ordinary]
 
-  if(fix.type === FixType.pierce) {
+  if (fix.type === FixType.pierce) {
     color = colorMap[FixType.pierce]
   }
-  if(fix.type === FixType.probRa) {
+  if (fix.type === FixType.probRa) {
     color = colorMap[FixType.probRa]
   }
-  if(fix.type === FixType.probMinmax) {
+  if (fix.type === FixType.probMinmax) {
     color = colorMap[FixType.probMinmax]
   }
-  if(fix.type === FixType.minmaxRa) {
+  if (fix.type === FixType.minmaxRa) {
     color = colorMap[FixType.minmaxRa]
   }
 
   return (
-    <Box display={'flex'} sx={{alignItems: 'center'}}>
-      <Box display={'flex'} sx={{width: '8rem', justifyContent: 'end'}}>
-        <Typography sx={{mr: '.5rem'}}>{`${fix.count}x`}</Typography>
-        <Typography color={color} sx={{mr: '.75rem'}}>{fix.name}</Typography>
+    <Box display={'flex'}
+         sx={{
+           alignItems: 'center',
+           flexDirection: suffixMode ? 'row-reverse' : 'row'
+         }}>
+      <Box display={'flex'}
+           sx={{
+             width: '12rem', justifyContent: suffixMode ? 'start' : 'end',
+             flexDirection: suffixMode ? 'row-reverse' : 'row'
+           }}>
+        <Typography>{`${fix.count}x`}</Typography>
+        <Typography color={color} sx={{mx: '.75rem'}}>{suffixMode ? `of ${fix.name}` : fix.name}</Typography>
       </Box>
-      <ProgressBarFull>
+      <ProgressBarFull suffixMode={suffixMode}>
         <ProgressBarInner
           bgColor={color}
           // There won't be additional changes in the array so the index can be used

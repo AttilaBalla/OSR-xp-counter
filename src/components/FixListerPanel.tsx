@@ -1,16 +1,17 @@
-import {Box, Divider} from "@mui/material";
-import {FixElement} from "./FixElement";
 import {FixType, IFix} from "../utilities/types.ts";
+import {FixElement} from "./FixElement.tsx";
+import {Box} from "@mui/material";
 
 interface IProps {
-  fixes: IFix[]
+  fixes: IFix[],
+  sortBy: string,
   filterOrdinary: boolean
-  sortBy: string
+  suffixMode?: boolean
 }
 
 export function FixListerPanel(props: IProps) {
 
-  const {fixes, filterOrdinary, sortBy} = props;
+  const {fixes, sortBy, filterOrdinary, suffixMode} = props;
 
   const sortedFixList = sortBy === 'name' ?
     fixes.sort((a, b) => a.name > b.name ? 1 : b.name > a.name ? -1 : 0) :
@@ -22,13 +23,24 @@ export function FixListerPanel(props: IProps) {
 
   return (
     <Box sx={{width: '100%'}}>
-      <Divider sx={{my: '1rem'}}/>
       {sortedFixList.map((fix) => {
         if (filterOrdinary) {
           return fix.type !== FixType.ordinary ?
-            <FixElement fix={fix} percent={(fix.count / mostOccurredFix) * 100}/> : null
+            <FixElement
+              suffixMode={suffixMode}
+              key={fix.name}
+              fix={fix}
+              percent={(fix.count / mostOccurredFix) * 100}
+            /> : null
         } else {
-          return <FixElement fix={fix} percent={(fix.count / mostOccurredFix) * 100}/>
+          return (
+            <FixElement
+              suffixMode={suffixMode}
+              key={fix.name}
+              fix={fix}
+              percent={(fix.count / mostOccurredFix) * 100}
+            />
+          )
         }
       })}
     </Box>
