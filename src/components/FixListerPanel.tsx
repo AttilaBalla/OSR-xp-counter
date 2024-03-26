@@ -1,46 +1,36 @@
-import {Box, Divider, FormControlLabel, Radio, RadioGroup, Typography} from "@mui/material";
+import {Box, Divider} from "@mui/material";
 import {FixElement} from "./FixElement";
-import {ChangeEvent, useState} from "react";
+import {FixType, IFix} from "../utilities/types.ts";
 
 interface IProps {
-  fixes: { name: string, count: number }[]
+  fixes: IFix[]
+  filterOrdinary: boolean
+  sortBy: string
 }
+
 export function FixListerPanel(props: IProps) {
 
-  const {fixes} = props;
-
-  const [sortBy, setSortBy] = useState<string>('name')
-
-  const handleSetSortBy = (event: ChangeEvent<HTMLInputElement>) => {
-    setSortBy((event.target as HTMLInputElement).value);
-  };
-
-  const mostOccurredFix = fixes ? Object.values(fixes).reduce(function (prev, current) {
-    return (prev && prev.count > current.count) ? prev : current
-  }).count : 0 //returns object
+  const {fixes, filterOrdinary, sortBy} = props;
 
   const sortedFixList = sortBy === 'name' ?
     fixes.sort((a, b) => a.name > b.name ? 1 : b.name > a.name ? -1 : 0) :
     fixes.sort((a, b) => b.count - a.count)
 
+  const mostOccurredFix = fixes ? Object.values(fixes).reduce(function (prev, current) {
+    return (prev && prev.count > current.count) ? prev : current
+  }).count : 0 //returns object
 
   return (
-    <>
-      <Box sx={{mt: '1rem'}}>
-        <Typography>Sort By:</Typography>
-        <RadioGroup
-          row
-          value={sortBy}
-          onChange={handleSetSortBy}
-        >
-          <FormControlLabel value="name" control={<Radio/>} label="Name"/>
-          <FormControlLabel value="value" control={<Radio/>} label="Value"/>
-        </RadioGroup>
-      </Box>
+    <Box sx={{width: '100%'}}>
       <Divider sx={{my: '1rem'}}/>
       {sortedFixList.map((fix) => {
-        return <FixElement name={fix.name} percent={(fix.count / mostOccurredFix) * 100} value={fix.count}/>
+        if (filterOrdinary) {
+          return fix.type !== FixType.ordinary ?
+            <FixElement fix={fix} percent={(fix.count / mostOccurredFix) * 100}/> : null
+        } else {
+          return <FixElement fix={fix} percent={(fix.count / mostOccurredFix) * 100}/>
+        }
       })}
-    </>
+    </Box>
   )
 }

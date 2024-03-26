@@ -124,6 +124,8 @@ export const missions = [
   }
 ]
 
+export const fixingModes = ['PREFIX_SUFFIX', 'PREFIX_ONLY', 'SUFFIX_ONLY']
+
 export const weaponNames = [
   'Arrow',
   'Hammerhead',
@@ -146,36 +148,72 @@ export const fixesProbMinMax = [
   'Warrior',
   'Navas',
   'Neopyte',
-  'Luciper'
+  'Luciper',
+  'Ruikeeper',
+  'Major',
+  'Minor',
+  'Orias',
+  'Black',
+  'Proson',
+  'Baehr',
+  'Aloken',
+  'Zelator',
+  'Tobit',
+  'Ghast',
+  'Hound',
 ]
-export const fixesProbRa = ['' +
-'Legend',
+export const fixesProbRa = [
+  'Amazing',
+  'Ether',
+  'Epic',
+  'Chimera',
+  'Terra',
+  "Tachyon",
+  'Trekki',
+  'Deus',
+  'Elite',
+  'Faithful',
+  'Attack',
+  'Legend',
   'Silence',
   'Bio',
   'Meteo',
   'Ultra',
-  'Tachyon'
 ]
 export const fixesMinMaxRa = [
   'Max',
   'Squire',
-  'Major',
-  'Minor'
 ]
 export const fixesPierce = [
-  'Bandit',
-  'Traitor',
-  'Acts',
-  'Adversary',
-  'Aim',
-  'Agrippa',
-  'Aloken',
-  'Arcas',
-  'Archival',
   'Argos',
-  'Arius',
+  'Arcas',
+  'Orpheus',
+  'Gaia',
+  'Atalanta',
+  'Minerva',
+  'Cybele',
+  'Archival',
+  'Bandit',
+  'Adversary',
   'Bane',
+  'Challenger',
+  'Traitor',
+  'Katana',
+  'Akhirah',
+  'Isis',
+  'Arius',
+  'Athena',
   'Neith',
-  'Metis'
-
+  'Metis',
+  'Zeus',
+  'Esna',
+  'Aether',
+  'Barbican',
+  'Stronghold',
+  'Blockade',
+  'Fortress',
+  'Rampart',
+  'Palisade',
+  'Acts',
+  'Agrippa'
 ]

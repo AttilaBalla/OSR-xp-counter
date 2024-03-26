@@ -4,7 +4,7 @@ export enum ProgressBarTypes {
   info = 'info'
 }
 
-export enum FixTypes {
+export enum FixType {
   ordinary = 'ordinary', // green
   probRa = 'probRa', // blue
   minmaxRa = 'minmaxRa', // red
@@ -22,4 +22,10 @@ export interface IFixVisualizerJSON {
   totalTime: 'string'
   iterations: number,
   fixes: string[]
+}
+
+export interface IFix {
+  name: string,
+  count: number,
+  type: FixType
 }

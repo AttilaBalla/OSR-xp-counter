@@ -1,4 +1,5 @@
-import {level, missions, weaponNames} from "./constants";
+import {fixesMinMaxRa, fixesPierce, fixesProbMinMax, fixesProbRa, level, missions, weaponNames} from "./constants";
+import {FixType, IFix} from "./types.ts";
 
 export function calcAccumulatedXP(
   fromLevel: number,
@@ -20,19 +21,19 @@ export function calcAccumulatedMissionXP(selectedMissions: number[]): number {
   return totalXP
 }
 
-export function countFixes(fixes: string[] | undefined) {
+export function countFixes(fixes: string[] | undefined, suffixMode: boolean = false) {
 
   if (!fixes) return;
 
   const knownFixes: string[] = []
-  const fixesList: { name: string, count: number }[] = []
+  const fixesList: IFix[] = []
 
   fixes
     .filter((fix) => { // filter out mistakes made by the script
       return fix !== ''
     })
     .forEach((fix) => {
-      const fixName = fix.split(' ')[0]
+      const fixName = suffixMode ? fix.split('').reverse()[0] : fix.split(' ')[0]
       if (knownFixes.includes(fixName)) {
         const index = fixesList.findIndex((fix) => {
           return fix.name === fixName
@@ -41,10 +42,19 @@ export function countFixes(fixes: string[] | undefined) {
       } else {
         if (!weaponNames.includes(fixName)) {
           knownFixes.push(fixName)
-          fixesList.push({name: fixName, count: 1})
+          fixesList.push({name: fixName, count: 1, type: setFixType(fixName)})
         }
       }
     })
 
   return fixesList
+}
+
+function setFixType(fix: string): FixType {
+  if(fixesProbMinMax.includes(fix)) return FixType.probMinmax
+  if(fixesPierce.includes(fix)) return FixType.pierce
+  if(fixesProbRa.includes(fix)) return FixType.probRa
+  if(fixesMinMaxRa.includes(fix)) return FixType.minmaxRa
+
+  return FixType.ordinary
 }

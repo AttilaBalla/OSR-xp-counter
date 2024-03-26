@@ -1,47 +1,45 @@
 import {Box, Typography, useTheme} from "@mui/material";
 import {ProgressBarFull, ProgressBarInner} from "./styledElements";
-import {FixTypes} from "../utilities/types";
-import {fixesProbMinMax, fixesPierce, fixesProbRa, fixesMinMaxRa} from "../utilities/constants";
+import {FixType, IFix} from "../utilities/types";
 
 interface IProps {
-  name: string,
-  value: number,
+  fix: IFix,
   percent: number
 }
 
 export function FixElement(props: IProps) {
 
-  const {name, value, percent} = props
+  const {fix, percent} = props
   const theme = useTheme()
 
-  const colorMap: Record<FixTypes | string, string> = {
-    [FixTypes.ordinary]: theme.palette.success.main,
-    [FixTypes.probMinmax]: theme.palette.warning.main,
-    [FixTypes.probRa]: theme.palette.info.main,
-    [FixTypes.minmaxRa]: theme.palette.error.main,
-    [FixTypes.pierce]: theme.palette.secondary.main
+  const colorMap: Record<FixType | string, string> = {
+    [FixType.ordinary]: theme.palette.success.main,
+    [FixType.probMinmax]: theme.palette.warning.main,
+    [FixType.probRa]: theme.palette.info.main,
+    [FixType.minmaxRa]: theme.palette.error.main,
+    [FixType.pierce]: theme.palette.secondary.main
   }
 
-  let color = colorMap[FixTypes.ordinary]
+  let color = colorMap[FixType.ordinary]
 
-  if(fixesPierce.includes(name)) {
-    color = colorMap[FixTypes.pierce]
+  if(fix.type === FixType.pierce) {
+    color = colorMap[FixType.pierce]
   }
-  if(fixesProbRa.includes(name)) {
-    color = colorMap[FixTypes.probRa]
+  if(fix.type === FixType.probRa) {
+    color = colorMap[FixType.probRa]
   }
-  if(fixesProbMinMax.includes(name)) {
-    color = colorMap[FixTypes.probMinmax]
+  if(fix.type === FixType.probMinmax) {
+    color = colorMap[FixType.probMinmax]
   }
-  if(fixesMinMaxRa.includes(name)) {
-    color = colorMap[FixTypes.minmaxRa]
+  if(fix.type === FixType.minmaxRa) {
+    color = colorMap[FixType.minmaxRa]
   }
 
   return (
     <Box display={'flex'} sx={{alignItems: 'center'}}>
       <Box display={'flex'} sx={{width: '8rem', justifyContent: 'end'}}>
-        <Typography sx={{mr: '.5rem'}}>{`${value}x`}</Typography>
-        <Typography color={color} sx={{mr: '.75rem'}}>{name}</Typography>
+        <Typography sx={{mr: '.5rem'}}>{`${fix.count}x`}</Typography>
+        <Typography color={color} sx={{mr: '.75rem'}}>{fix.name}</Typography>
       </Box>
       <ProgressBarFull>
         <ProgressBarInner
