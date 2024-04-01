@@ -129,6 +129,11 @@ export const missions = [
     xp: 190010000
   },
   {
+    name: 'G-ARK Last Stand',
+    level: 97,
+    xp: 190020000
+  },
+  {
     name: 'Sekhmete',
     level: 99,
     xp: 190030000
