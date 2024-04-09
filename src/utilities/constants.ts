@@ -119,6 +119,51 @@ export const missions = [
     xp: 1940000
   },
   {
+    name: 'The Journey Back',
+    level: 68,
+    xp: 2770000
+  },
+  {
+    name: 'The Dark Corridor',
+    level: 70,
+    xp: 4000000
+  },
+  {
+    name: 'The Past Returns',
+    level: 72,
+    xp: 5700000
+  },
+  {
+    name: 'G-ARK Mk.III',
+    level: 74,
+    xp: 8240000
+  },
+  {
+    name: `Into G-ARK's Depths`,
+    level: 76,
+    xp: 11900000
+  },
+  {
+    name: 'Beautiful Death',
+    level: 79,
+    xp: 20500000
+  },
+  {
+    name: 'Payback',
+    level: 82,
+    xp: 35420000
+  },
+  {
+    name: 'Lumien Awakens',
+    level: 88,
+    xp: 105800000
+  },
+  {
+    name: 'Sacrifice of the Gigantic God',
+    level: 91,
+    xp: 182700000
+  },
+  {
     name: 'Past and Present Collide',
     level: 93,
     xp: 190000000
