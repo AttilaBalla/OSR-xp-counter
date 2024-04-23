@@ -73,7 +73,7 @@ function XpCounter() {
               label={'Progressed %'}
               value={progress}
               onChange={(event: ChangeEvent<HTMLInputElement>) => {
-                setValue(event.target.value, 0, 123, setProgress)
+                setValue(event.target.value, 0, 100, setProgress)
               }}/>
             <Button
               color={'secondary'}
