@@ -43,7 +43,7 @@ function XpCounter() {
               label={'Level'}
               value={level}
               onChange={(event: ChangeEvent<HTMLInputElement>) => {
-                setValue(event.target.value, 1, 99, setLevel)
+                setValue(event.target.value, 1, 122, setLevel)
               }}
             />
             <TextField
@@ -52,7 +52,7 @@ function XpCounter() {
               value={percent}
               onChange={(event: ChangeEvent<HTMLInputElement>) => {
                 const value = event.target.value
-                setValue(value, 0, 100, () => {
+                setValue(value, 0, 123, () => {
                   setPercent((prevState) => {
                     if (parseInt(prevState) < parseInt(value)) {
                       setProgress(value)
@@ -73,7 +73,7 @@ function XpCounter() {
               label={'Progressed %'}
               value={progress}
               onChange={(event: ChangeEvent<HTMLInputElement>) => {
-                setValue(event.target.value, 0, 100, setProgress)
+                setValue(event.target.value, 0, 123, setProgress)
               }}/>
             <Button
               color={'secondary'}
@@ -92,7 +92,7 @@ function XpCounter() {
               label={'From level'}
               value={fromLevel}
               onChange={(event: ChangeEvent<HTMLInputElement>) => {
-                setValue(event.target.value, 1, 99, setFromLevel)
+                setValue(event.target.value, 1, 122, setFromLevel)
               }}
             />
             <TextField
@@ -100,7 +100,7 @@ function XpCounter() {
               label={'To level'}
               value={toLevel}
               onChange={(event: ChangeEvent<HTMLInputElement>) => {
-                setValue(event.target.value, 1, 100, setToLevel)
+                setValue(event.target.value, 1, 123, setToLevel)
               }}
             />
           </Stack>
